@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap"
+          rel="stylesheet">
+</head>
+<style>
+    .filter-container {
+        position: fixed;
+        top: 20px;
+        left: 80px;
+        z-index: 100;
+    }
+
+    .sprint-dropdown {
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-family: 'Space Mono', monospace;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .sprint-dropdown:hover {
+        border-color: var(--accent-cyan);
+    }
+
+    .feature-description * {
+        color: inherit !important; /* Backenddan kelgan ranglarni bekor qilib, bizning text-secondary rangni qo'llaydi */
+        background-color: transparent !important;
+    }
+
+    .feature-description ul, .feature-description ol {
+        margin-left: 20px;
+        margin-top: 10px;
+        color: var(--text-secondary);
+    }
+
+    .feature-description a {
+        color: var(--accent-cyan);
+        text-decoration: underline;
+    }
+
+    /* 7. RASMLAR GALEREYASI (Play Market / App Store uslubida) */
+    .feature-body {
+        width: 100%;
+        max-width: 1200px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0; /* Overflow ishlashi uchun shart */
+        justify-content: center; /* Rasmlarni o'rtaga olish */
+    }
+
+    .feature-gallery {
+        display: flex;
+        flex-direction: row; /* Rasmlar yonma-yon (Play Market kabi) bo'lishi uchun */
+        gap: 20px;
+        overflow-x: auto; /* Gorizontal skroll */
+        overflow-y: hidden; /* Vertikal skrollni o'chiramiz */
+        padding: 20px 10px;
+        width: 100%;
+        justify-content: center; /* Rasmlar kam bo'lsa o'rtada turadi */
+        scroll-snap-type: x mandatory; /* Skroll bo'lganda rasmga "yopishadi" */
+    }
+
+    .screenshot-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* ASOSIY O'ZGARISH: */
+        flex: 0 0 auto; /* Kenglikni rasmga qarab o'zi oladi */
+        max-height: 60vh; /* Ekranning 60% balandligidan oshmaydi */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        scroll-snap-align: center;
+        transition: transform 0.3s;
+    }
+
+    .screenshot-item:hover {
+        transform: scale(1.02);
+    }
+
+    .screenshot-item img {
+        height: 100%; /* Balandlikni itemga moslaydi */
+        width: auto; /* Kenglik proporsiyani saqlaydi */
+        max-height: 60vh; /* Rasm balandligi cheklovi */
+        display: block;
+        object-fit: contain; /* Rasmni siqib tashlamaydi */
+        cursor: zoom-in;
+    }
+
+    /* Gorizontal skrollbarni chiroyli qilish */
+    .feature-gallery::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .feature-gallery::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 10px;
+    }
+
+    .justify-start {
+        justify-content: flex-start !important;
+    }
+
+    .justify-center {
+        justify-content: center !important;
+    }
+
+    @media print {
+        /* 1. Slayder navigatsiyasi va ortiqcha elementlarni yashiramiz */
+        .nav-controls, .home-btn, .filter-container, .progress-bar, .slide-counter, .keyboard-hint, .bg-glow {
+            display: none !important;
+        }
+
+        /* 2. Body va Wrapper sozlamalari */
+        body, html {
+            height: auto !important;
+            overflow: visible !important;
+            background: #0a0e1a !important; /* PDF foni */
+            -webkit-print-color-adjust: exact; /* Ranglarni saqlab qolish uchun */
+        }
+
+        .slides-container {
+            height: auto !important;
+            display: block !important;
+        }
+
+        /* 3. Barcha slaydlarni ketma-ket chiqaramiz */
+        .slide {
+            position: relative !important;
+            display: flex !important;
+            flex-direction: column !important;
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+            height: auto !important;
+            min-height: 100vh; /* Har bir slayd bitta betni egallaydi */
+            page-break-after: always !important; /* Har bir slayd yangi betdan */
+            padding: 40px !important;
+            pointer-events: all !important;
+        }
+
+        /* 4. Galereyadagi rasmlarni to'liq yoyib chiqamiz */
+        .feature-gallery {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 20px !important;
+            overflow: visible !important;
+            max-height: none !important;
+        }
+
+        .screenshot-item {
+            break-inside: avoid !important; /* Rasmni o'rtasidan bo'lmaslik */
+            width: 100% !important;
+            max-height: none !important;
+        }
+
+        .screenshot-item img {
+            width: 100% !important;
+            height: auto !important;
+            max-height: none !important;
+        }
+
+        /* 5. Matnlar rangini to'g'irlash */
+        .feature-title, h1, h2 {
+            color: #ffffff !important;
+        }
+
+        .feature-description {
+            background: rgba(16, 185, 129, 0.1) !important;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+
+</style>
+<body>
+
+<div class="filter-container">
+    <select id="sprintSelect" class="sprint-dropdown">
+        <option value="">Sprint yuklanmoqda...</option>
+    </select>
+</div>
+
+<div class="progress-bar" id="progress"></div>
+
+<div id="loader"
+     style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; background: #0a0e1a;">
+    <div class="sprint-badge"
+         style="padding: 10px 20px; background: rgba(16, 185, 129, 0.1); border-radius: 100px; color: #10b981;">
+        Yuklanmoqda...
+    </div>
+</div>
+
+
+<button class="home-btn" id="homeBtn" onclick="window.location.reload()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+</button>
+
+<div class="slides-container" id="slides-wrapper">
+</div>
+<div class="nav-controls">
+    <button class="nav-btn" title="PDF yuklash" onclick="exportToPDF()">
+        <i class="fas fa-file-pdf"></i> PDF
+    </button>
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<div class="nav-controls">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<div class="slide-counter" id="counter"></div>
+
+<div class="keyboard-hint">Navigatsiya: <kbd>←</kbd> <kbd>→</kbd> yoki <kbd>Space</kbd></div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="Zoomed view">
+</div>
+
+<script src="script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</body>
+</html>
