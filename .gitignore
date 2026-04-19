@@ -2,3 +2,4 @@
 .venv
 db.sqlite3
 apps/migrations/*
+media

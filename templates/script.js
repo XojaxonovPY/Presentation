@@ -1,7 +1,5 @@
 const API_BASE = "http://localhost:8000/api/v1";
 
-
-// Global holat
 let current = 0;
 let total = 0;
 let slides = [];
@@ -23,8 +21,8 @@ async function initApp() {
         showLoader(true);
         // Sprintlar va Mahsulotlarni parallel yuklash
         const [sprintsRes, prodRes] = await Promise.all([
-            fetch(`${API_BASE}/sprints/`, {headers: {'Accept-Language': currentLang}}),
-            fetch(`${API_BASE}/products/`, {headers: {'Accept-Language': currentLang}})
+            fetch(`${API_BASE}/sprints/`),
+            fetch(`${API_BASE}/products/`)
         ]);
         const sprints = await sprintsRes.json();
         allProducts = await prodRes.json();
@@ -58,9 +56,7 @@ async function renderStartPage(products) {
     // Bu qism har bir product uchun /features/?product=ID&sprint=ID so'rovini yuboradi
     const productsWithCount = await Promise.all(products.map(async (p) => {
         try {
-            const res = await fetch(`${API_BASE}/features/?product=${p.id}&sprint=${sprintId}`, {
-                headers: {'Accept-Language': currentLang}
-            });
+            const res = await fetch(`${API_BASE}/features/?product=${p.id}&sprint=${sprintId}`);
             const features = await res.json();
             return {...p, current_count: features.length};
         } catch {
@@ -98,9 +94,7 @@ async function loadFeatures(productId) {
 
     try {
         showLoader(true);
-        const res = await fetch(`${API_BASE}/features/?product=${productId}&sprint=${sprintId}`, {
-            headers: {'Accept-Language': currentLang}
-        });
+        const res = await fetch(`${API_BASE}/features/?product=${productId}&sprint=${sprintId}`);
         const features = await res.json();
 
         if (filterContainer) filterContainer.style.display = 'none';
