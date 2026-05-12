@@ -68,7 +68,7 @@ ROOT_URLCONF = 'root.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,10 +157,9 @@ REST_FRAMEWORK = {
 }
 
 # ===============================================Cors=====================================================
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://0.0.0.0:8080",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 # ===================================================Swagger-Ui============================================
 SPECTACULAR_SETTINGS = {
     'TITLE': 'DRF Template',
@@ -232,3 +231,5 @@ CKEDITOR_CONFIGS = {
         ],
     }
 }
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
