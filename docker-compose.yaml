@@ -19,6 +19,8 @@ services:
     container_name: presentation_con
     networks:
       - app_network # Shunda Nginx uni ko'ra oladi
+    ports:
+      - "8000:8000"
 
 networks:
   app_network:
