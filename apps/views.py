@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from rest_framework.generics import ListAPIView
 
 from apps.filters import FeatureFilterSet
@@ -19,3 +20,7 @@ class FeatureListAPIView(ListAPIView):
     queryset = Feature.objects.select_related('sprint', 'product').prefetch_related('features_files').all()
     serializer_class = FeatureModelSerializer
     filterset_class = FeatureFilterSet
+
+
+class PresentationTemplateView(TemplateView):
+    template_name = 'index.html'
