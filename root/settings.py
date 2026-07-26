@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     # -----ckeditor-----------
     'ckeditor',
     # ------my app ---------
-    'apps'
-
+    'apps',
+    "bot"
 ]
 
 MIDDLEWARE = [
