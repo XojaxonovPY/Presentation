@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     # -----ckeditor-----------
     'ckeditor',
     # ------my app ---------
-    'apps'
-
+    'apps',
+    "bot"
 ]
 
 MIDDLEWARE = [
@@ -159,7 +159,6 @@ REST_FRAMEWORK = {
 # ===============================================Cors=====================================================
 CORS_ALLOW_ALL_ORIGINS = True
 
-
 # ===================================================Swagger-Ui============================================
 SPECTACULAR_SETTINGS = {
     'TITLE': 'DRF Template',
@@ -233,3 +232,6 @@ CKEDITOR_CONFIGS = {
 }
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

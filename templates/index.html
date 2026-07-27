@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sprint Presentation</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static "styles.css" %}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap"
           rel="stylesheet">
 </head>
@@ -236,7 +237,7 @@
     <img id="lightboxImg" src="" alt="Zoomed view">
 </div>
 
-<script src="script.js"></script>
+<script src="{% static "script.js" %}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>

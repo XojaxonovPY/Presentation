@@ -1,25 +1,35 @@
 version: '3.8'
 
 services:
-  nginx_server:
-    image: nginx:alpine
-    container_name: global_nginx
-    ports:
-      - "80:80"
-    volumes:
-      - ./templates:/usr/share/nginx/html:ro
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    networks:
-      - app_network
-    depends_on:
-      - backend
-
   backend:
     build: .
-    container_name: presentation_con
+    container_name: presentation_backend
+    ports:
+      - "8001:8000"
+    volumes:
+      - .:/app
+      - db_volume:/app/db_data
     networks:
-      - app_network # Shunda Nginx uni ko'ra oladi
+      - app_network
+
+  bot:
+    build: .
+    container_name: presentation_bot
+    depends_on:
+      - backend
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+      - db_volume:/app/db_data
+    networks:
+      - app_network
+    command: sh -c "python -m bot.main"
 
 networks:
   app_network:
     driver: bridge
+
+volumes:
+  media_volume:
+  db_volume:
