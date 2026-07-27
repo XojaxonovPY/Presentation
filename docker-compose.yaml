@@ -3,14 +3,33 @@ version: '3.8'
 services:
   backend:
     build: .
-    container_name: presentation_con
+    container_name: presentation_backend
     ports:
       - "8001:8000"
     volumes:
       - .:/app
-      - media_volume:/app/media
+      - db_volume:/app/db_data
     networks:
       - app_network
 
+  bot:
+    build: .
+    container_name: presentation_bot
+    depends_on:
+      - backend
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+      - db_volume:/app/db_data
+    networks:
+      - app_network
+    command: sh -c "python -m bot.main"
+
+networks:
+  app_network:
+    driver: bridge
+
 volumes:
   media_volume:
+  db_volume:

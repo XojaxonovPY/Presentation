@@ -47,9 +47,10 @@ async def product_handler(data: CallbackQuery):
     parts = data.data.split("_")
     product_id: int = int(parts[1])
     sprint_id: int = int(parts[2])
+    product: Product = await Product.objects.filter(id=product_id).afirst()
 
     async for feature in Feature.objects.filter(product_id=product_id, sprint_id=sprint_id).all():
-        caption = f"Title:\n{feature.title}\nDescription:\n{feature.description}"
+        caption = f"<b>Title:</b>\n{feature.title}\n<b>Description:</b>\n{feature.description}\n<b>Product:</b>\n{product.title}"
         album_builder = MediaGroupBuilder(caption=caption)
         async for image in feature.features_files.all():
             try:
@@ -62,4 +63,3 @@ async def product_handler(data: CallbackQuery):
             await data.message.answer_media_group(media=album_builder.build())
         else:
             await data.message.answer("Afsuski, ushbu mahsulot uchun rasmlar topilmadi.")
-
