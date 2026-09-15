@@ -10,7 +10,7 @@ services:
       - .:/app
       - db_volume:/app/db_data
     networks:
-      - app_network
+      - shared-network
 
   bot:
     build: .
@@ -23,12 +23,13 @@ services:
       - .:/app
       - db_volume:/app/db_data
     networks:
-      - app_network
+      - shared-network
     command: sh -c "python -m bot.main"
 
+
 networks:
-  app_network:
-    driver: bridge
+  shared-network:
+    external: true
 
 volumes:
   media_volume:
