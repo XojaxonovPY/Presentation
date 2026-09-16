@@ -6,9 +6,6 @@ services:
     container_name: presentation_backend
     ports:
       - "8001:8000"
-    volumes:
-      - .:/app
-      - db_volume:/app/db_data
     networks:
       - shared-network
 
@@ -19,9 +16,6 @@ services:
       - backend
     environment:
       - PYTHONPATH=/app
-    volumes:
-      - .:/app
-      - db_volume:/app/db_data
     networks:
       - shared-network
     command: sh -c "python -m bot.main"
