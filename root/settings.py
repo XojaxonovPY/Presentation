@@ -10,8 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from datetime import timedelta
+from os import getenv
 from os.path import join
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-s1+$=p*q4aodu3!&(m5bs^xv5-iy-!-5kc=4p7%7bfruqq*5&l'
-
+load_dotenv()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -88,11 +91,11 @@ WSGI_APPLICATION = 'root.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'presentation',
-        'USER': 'postgres',
-        'PASSWORD': '1',
-        'HOST': 'shared-postgres',
-        'PORT': '5432',
+        'NAME': getenv("DB_NAME"),
+        'USER': getenv('DB_USER'),
+        'PASSWORD': getenv('DB_PASSWORD'),
+        'HOST': getenv('DB_HOST'),
+        'PORT': getenv('DB_PORT'),
     }
 }
 
