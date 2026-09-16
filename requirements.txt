@@ -27,3 +27,4 @@ uritemplate==4.2.0
 aiogram
 dotenv
 psycopg2-binary
+gunicorn
