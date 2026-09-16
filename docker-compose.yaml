@@ -30,7 +30,3 @@ services:
 networks:
   shared-network:
     external: true
-
-volumes:
-  media_volume:
-  db_volume:
