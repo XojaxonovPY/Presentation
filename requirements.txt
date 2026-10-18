@@ -28,3 +28,4 @@ aiogram
 dotenv
 psycopg2-binary
 gunicorn
+whitenoise
